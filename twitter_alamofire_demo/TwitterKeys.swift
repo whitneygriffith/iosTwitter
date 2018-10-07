@@ -8,5 +8,5 @@
 
 import Foundation
 
-let consumerKeys = "b6mXtnWvackvt7Ufaj0d4H0qc "
+let consumerKeys = "b6mXtnWvackvt7Ufaj0d4H0qc"
 let consumerSecrets = "bs81lMFJE74bSG2PKf4ErDnzPFusfOayvdq7HMsqtu6M6oarGy"
