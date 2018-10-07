@@ -3,7 +3,7 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 #APIKeys
-/twitter_alamofire_demo/TwitterKeys.swift
+twitter_alamofire_demo/TwitterKeys.swift
 
 ## Build generated
 build/
