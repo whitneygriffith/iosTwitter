@@ -15,9 +15,9 @@ import KeychainAccess
 class APIManager: SessionManager {
     
     // MARK: TODO: Add App Keys
-    static let consumerKey = ""
-    static let consumerSecret = ""
 
+    let consumerKey = consumerKeys
+    let consumerSecret = consumerSecrets
     static let requestTokenURL = "https://api.twitter.com/oauth/request_token"
     static let authorizeURL = "https://api.twitter.com/oauth/authorize"
     static let accessTokenURL = "https://api.twitter.com/oauth/access_token"
@@ -137,8 +137,8 @@ class APIManager: SessionManager {
         
         // Create an instance of OAuth1Swift with credentials and oauth endpoints
         oauthManager = OAuth1Swift(
-            consumerKey: APIManager.consumerKey,
-            consumerSecret: APIManager.consumerSecret,
+            consumerKey: consumerKeys,
+            consumerSecret: consumerSecrets,
             requestTokenUrl: APIManager.requestTokenURL,
             authorizeUrl: APIManager.authorizeURL,
             accessTokenUrl: APIManager.accessTokenURL
