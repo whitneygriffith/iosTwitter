@@ -8,7 +8,27 @@
 
 import UIKit
 
-class TimelineViewController: UIViewController {
+class TimelineViewController: UIViewController, UITableViewDataSource {
+    
+    @IBOutlet weak var timelineTableView: UITableView!
+    
+    var tweets : [Tweet] = []
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tweets.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = timelineTableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
+        let tweet = tweets[indexPath.row]
+        cell.tweet = tweet
+       // cell.user = tweet.user // User.current
+      //  cell.indexPath = indexPath
+       // cell.updateAllContent()
+        //cell.parentView = self as TimelineViewController
+        return cell
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +41,10 @@ class TimelineViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func logout(_ sender: Any) {
+        APIManager.shared.logout()
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -9,7 +9,7 @@ Time spent: **X** hours spent in total
 The following **required** functionality is completed:
 
 - [x] User sees app icon in home screen and styled launch screen. (1pt)
-- [ ] User can sign in using OAuth login flow. (1pt)
+- [x] User can sign in using OAuth login flow. (1pt)
 - [ ] User can Logout. (1pt)
 - [ ] Create Data Models for User and Tweet. (1pt)
 - [ ] User can view last 20 tweets from their home timeline with the user profile picture, username, tweet text, and timestamp. (2pts)
