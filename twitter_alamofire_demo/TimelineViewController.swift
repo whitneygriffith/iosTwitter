@@ -7,33 +7,42 @@
 //
 
 import UIKit
+import Alamofire
 
-class TimelineViewController: UIViewController, UITableViewDataSource {
+class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var timelineTableView: UITableView!
+
+    
+    @IBOutlet weak var tableView: UITableView!
     
     var tweets : [Tweet] = []
+    
+    var refreshControl: UIRefreshControl!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = timelineTableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         let tweet = tweets[indexPath.row]
+        tweet.photoURL = tweets[indexPath.row].user?.profilepic
         cell.tweet = tweet
-       // cell.user = tweet.user // User.current
-      //  cell.indexPath = indexPath
-       // cell.updateAllContent()
-        //cell.parentView = self as TimelineViewController
+
+        
         return cell
     }
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshControl = UIRefreshControl ()
+        refreshControl.addTarget(self, action: #selector(TimelineViewController.didPullToRefresh(_:)), for: .valueChanged)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.insertSubview(refreshControl, at: 0)
+        getTweets()
 
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,14 +54,22 @@ class TimelineViewController: UIViewController, UITableViewDataSource {
         APIManager.shared.logout()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func getTweets(){
+        APIManager.shared.getHomeTimeLine { (tweets, error) in
+            if let tweets = tweets {
+                self.tweets = tweets
+                self.tableView.reloadData()
+                
+            } else if let error = error {
+                print("Error getting home timeline: " + error.localizedDescription)
+            }
+        }
     }
-    */
-
+    func didPullToRefresh (_ refreshController: UIRefreshControl){
+        getTweets()
+        refreshControl.endRefreshing()
+    
+    }
+    
 }
+
